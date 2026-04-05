@@ -18,6 +18,15 @@ resource "aws_instance" "my_ec2" {
   instance_type = "t2.micro"
 
   vpc_security_group_ids = [aws_security_group.my_sg.id]
+
+  user_data = <<-EOF
+              #!/bin/bash
+              yum update -y
+              yum install -y httpd
+              systemctl start httpd
+              systemctl enable httpd
+              echo "Hello from Terraform EC2" > /var/www/html/index.html
+              EOF
 }
 
 resource "aws_security_group" "my_sg" {
