@@ -53,3 +53,16 @@ resource "aws_security_group" "my_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_db_instance" "my_db" {
+  identifier         = "my-terraform-db"
+  engine             = "postgres"
+  instance_class     = "db.t3.micro"
+
+  allocated_storage  = 20
+
+  username = "postgres"
+  password = "Instance0362?"
+
+  skip_final_snapshot = true
+}
